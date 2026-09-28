@@ -11,6 +11,13 @@ x label: Year
 Y label: HP
 """
 def plot_line_chart(data: dict) -> None:
+    years = list(data.keys())
+    hp_values = list(data.values())
+    plt.plot(years, hp_values)
+    plt.title("Witcher Characters' HP Over Years")
+    plt.xlabel("Year")
+    plt.ylabel("HP")
+    plt.show()
     pass
 
 
@@ -28,6 +35,12 @@ Y label: Kills
 Legend: ['Kills']
 """
 def plot_bar_chart(characters: list, kills: list) -> None:
+    plt.bar(characters, kills, label='Kills')
+    plt.title("Kills by Witcher Characters")
+    plt.xlabel("Characters")
+    plt.ylabel("Kills")
+    plt.legend()
+    plt.show()
     pass
 
 
@@ -43,6 +56,11 @@ title: Power Distribution Among Factions
 
 """ 
 def plot_pie_chart(factions: dict) -> None:
+    labels = list(factions.keys())
+    sizes = list(factions.values())
+    plt.pie(sizes, labels=labels, autopct='%1.1f%%')
+    plt.title("Power Distribution Among Factions")
+    plt.show()
     pass
 
 
@@ -58,6 +76,11 @@ X Label: Years of Experience
 Y Label: Number of Characters
 """
 def plot_histogram(experience_years: list) -> None:
+    plt.hist(experience_years)
+    plt.title("Distribution of Experience")
+    plt.xlabel("Years of Experience")
+    plt.ylabel("Number of Characters")
+    plt.show()
     pass
 
 
@@ -78,6 +101,13 @@ X Label: Power Level
 Y Label: Popularity Level
 """
 def plot_scatterplot(x: list, y: list, labels: list) -> None:
+    plt.scatter(x, y)
+    for i in range(len(labels)):
+        plt.annotate(labels[i], (x[i], y[i]))
+    plt.title("Power vs Popularity")
+    plt.xlabel("Power Level")
+    plt.ylabel("Popularity Level")
+    plt.show()
     pass
 
 
@@ -93,7 +123,17 @@ Output: Çoklu line chart gösterir (her karakter için bir çizgi).
 Ek İstek: Grafiğe başlık, eksen etiketleri ve legend ekle.
 """
 def plot_multi_line_chart(data: dict) -> None:
-   pass
+    for character, year_hp in data.items():
+        years = list(year_hp.keys())
+        hp_values = list(year_hp.values())
+        plt.plot(years, hp_values, label=character)
+    plt.title("Witcher Characters' HP Over Years")
+    plt.xlabel("Year")
+    plt.ylabel("HP")
+    plt.legend()
+    plt.show()
+    pass
+
 
 
 """
@@ -112,7 +152,16 @@ values: karakter isimleri (str) anahtar, değer olarak da düşman türlerine g�
 Output: Stacked bar chart gösterir.
 """
 def plot_stacked_bar_chart(categories: list, values: dict) -> None:
-   pass
+    bottom_values = np.zeros(len(categories))
+    for character, kills in values.items():
+        plt.bar(categories, kills, bottom=bottom_values, label=character)
+        bottom_values += np.array(kills)
+    plt.title("Kills by Enemy Type")
+    plt.xlabel("Enemy Type")
+    plt.ylabel("Number of Kills")
+    plt.legend()
+    plt.show()
+    pass
 
 
 """
@@ -130,4 +179,10 @@ Output: Boxplot grafiği gösterir.
 Ek İstek: Grafikte karakter isimleri x-tick olarak gözüksün.
 """
 def plot_boxplot(data: dict) -> None:
+    isimler = list(data.keys())
+    puanlar = list(data.values())
+    plt.boxplot(puanlar)
+    plt.xticks(range(1, len(isimler) + 1), isimler)
+    plt.title("Skill Score Distribution")
+    plt.show()
     pass
